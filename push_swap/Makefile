@@ -1,0 +1,46 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: hel-hich <hel-hich@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/05/01 15:06:57 by hel-hich          #+#    #+#              #
+#    Updated: 2022/05/01 15:06:59 by hel-hich         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+SRCS =  rules/rules.c rules/rules_2.c rules/rules_3.c algo.c \
+		ft_checking.c ft_fix.c indexing.c lst_utiles.c markup.c \
+		send_to_b.c
+SRCB = checker.c
+SRCM = push_swap.c
+NAME = push_swap
+NAMEB = checker
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+
+$(NAME): $(SRCM) $(SRCS) libft/libft.a push_swap.h
+	$(CC) $(CFLAGS) -o $(NAME) $(SRCM) $(SRCS) libft/libft.a
+
+$(NAMEB): $(SRCB) $(SRCS) Libft/libft.a push_swap.h
+	$(CC) $(CFLAGS) -o $(NAMEB) $(SRCB) $(SRCS) libft/libft.a
+
+.PHONY: all re clean fclean bonus
+
+libft/libft.a:
+	make -C Libft all
+
+all: $(NAME)
+
+bonus: $(NAMEB)
+
+clean:
+	make -C Libft clean
+
+fclean:
+	make -C Libft fclean
+	rm -rf $(NAME) $(NAMEB)
+
+re: fclean all
+
